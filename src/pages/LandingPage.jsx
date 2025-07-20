@@ -1,0 +1,117 @@
+import React, { useState, useContext } from 'react';
+import { APP_FEATURES } from "../utils/data";
+import { useNavigate } from 'react-router-dom';
+import { LuSparkles } from 'react-icons/lu';
+import Modal from '../components/Modal';
+import SignUp from './Auth/SignUp';
+import Login from './Auth/Login';
+import { UserContext } from '../context/userContext';
+import ProfileInfoCard from '../components/Cards/ProfileInfoCard';
+
+const LandingPage = () => {
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const [openAuthModal, setOpenAuthModal] = useState(false);
+  const [currentPage, setCurrentPage] = useState("login");
+
+  const handleCTA = () => {
+    if (!user) {
+      setOpenAuthModal(true);
+    } else {
+      navigate("/dashboard");
+    }
+  };
+
+  return (
+    <>
+      <div className="w-full min-h-screen bg-gray-900 text-white flex flex-col">
+        {/* Header */}
+        <header className="container mx-auto flex justify-between items-center px-6 py-6">
+          <h1 className="text-2xl font-bold text-blue-400">RoleCrack</h1>
+          {user ? (
+            <ProfileInfoCard />
+          ) : (
+            <button
+              className="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-full transition"
+              onClick={() => setOpenAuthModal(true)}
+            >
+              Login / Sign Up
+            </button>
+          )}
+        </header>
+
+        {/* Hero Section */}
+        <main className="container mx-auto flex-1 flex flex-col justify-center px-6">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 bg-blue-800/20 text-blue-400 px-3 py-1 rounded-full text-sm font-medium border border-blue-500 mb-5">
+              <LuSparkles />
+              AI Powered
+            </div>
+
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+              Ace Interviews with <span className="text-blue-500">AI-Powered</span> Learning
+            </h2>
+
+            <p className="text-lg text-gray-300 mb-8 leading-relaxed">
+              Personalized role-specific questions, dynamic explanations, and deeper insights —
+              all in one place to help you crack your dream role.
+            </p>
+
+            <button
+              className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-full font-semibold shadow-md transition"
+              onClick={handleCTA}
+            >
+              Get Started
+            </button>
+          </div>
+        </main>
+
+        {/* Features Section */}
+        <section className="bg-gray-800 py-20">
+          <div className="container mx-auto px-6">
+            <h3 className="text-3xl font-semibold text-center text-white mb-12">
+              Features that Make You Shine
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {APP_FEATURES.map((feature) => (
+                <div
+                  key={feature.id}
+                  className="bg-gray-700 border border-blue-900 p-6 rounded-xl shadow-md hover:shadow-lg transition"
+                >
+                  <h4 className="text-xl font-semibold text-blue-400 mb-2">
+                    {feature.title}
+                  </h4>
+                  <p className="text-gray-300 text-sm">
+                    {feature.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="bg-gray-950 text-gray-400 text-center text-sm py-5">
+          Made with ❤️ — RoleCrack © {new Date().getFullYear()}
+        </footer>
+      </div>
+
+      {/* Auth Modal */}
+      <Modal
+        isOpen={openAuthModal}
+        onClose={() => {
+          setOpenAuthModal(false);
+          setCurrentPage("login");
+        }}
+        hideHeader
+      >
+        {currentPage === "login" && <Login setCurrentPage={setCurrentPage} />}
+        {currentPage === "signup" && <SignUp setCurrentPage={setCurrentPage} />}
+      </Modal>
+    </>
+  );
+};
+
+export default LandingPage;
