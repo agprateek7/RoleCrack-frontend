@@ -1,18 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { LuChevronDown, LuPin, LuPinOff, LuSparkles } from 'react-icons/lu'
 import AIResponsePreview from '../../pages/InterviewPrep/components/AIResponsePreview';
+import axiosInstance from '../../utils/axiosInstance';
+import { API_PATHS } from '../../utils/apiPaths';
 
 const QuestionCard = ({
     question,
     answer,
     onLearnMore,
     isPinned,
-    onTogglePin
+    onTogglePin,
+    note,           
+    questionId,     
+    onNoteSaved
 }) => {
 
     const [isExpanded, setIsExpanded] = useState(false);
     const [height, setHeight] = useState(0);
     const contentRef = useRef(null);
+    const [noteText, setNoteText] = useState(note || "")
+    const [isSaving, setIsSaving] = useState(false)
 
     useEffect(() => {
         if(isExpanded) {
@@ -23,9 +30,26 @@ const QuestionCard = ({
         }
     }, [isExpanded])
 
+    useEffect(() => {
+        setNoteText(note || "")
+    }, [note])
+
     const toggleExpand = () => {
         setIsExpanded(!isExpanded)
     };
+
+     const handleSaveNote = async () => {
+        setIsSaving(true)
+        try {
+            await axiosInstance.post(API_PATHS.QUESTION.UPDATE_NOTE(questionId), { note: noteText })
+            if (onNoteSaved) onNoteSaved(noteText)
+        } catch (e) {
+            // Optionally show error
+        } finally {
+            setIsSaving(false)
+        }
+    }
+
   return (
     <div className='bg-white rounded-lg mb-4 overflow-hidden py-4 px-5 shadow-xl shadow-gray-100/70 border border-gray-100/60 group'>
         <div className='flex items-start justify-between cursor-pointer'>
@@ -94,6 +118,23 @@ const QuestionCard = ({
                 className='mt-4 text-gray-700 bg-gray-50 px-5 py-3 rounded-lg'
             >
                 <AIResponsePreview content={answer}/>
+                <div className="mt-4">
+                    <textarea
+                        value={noteText}
+                        onChange={e => setNoteText(e.target.value)}
+                        placeholder="Add your note here..."
+                        className="w-full p-2 border rounded mb-2"
+                        rows={2}
+                    />
+                    <button
+                        onClick={handleSaveNote}
+                        disabled={isSaving}
+                        className="px-4 py-1 font-medium rounded-lg shadow-sm transition-colors duration-200
+                                bg-black text-white disabled:bg-gray-300 disabled:text-gray-500 cursor-pointer"
+                    >
+                        {isSaving ? "Saving..." : "Save Note"}
+                    </button>
+                </div>
             </div>
         </div>
     </div>

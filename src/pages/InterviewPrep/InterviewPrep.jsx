@@ -186,6 +186,9 @@ const InterviewPrep = () => {
                         }
                         isPinned={data?.isPinned}
                         onTogglePin={() => toggleQuestionPinStatus(data._id)}
+                        note={data?.note}
+                        questionId={data?._id}
+                        onNoteSaved={() => fetchSessionDetailsById()}
                       />
 
                     {!isLoading && 
