@@ -1,12 +1,67 @@
-# React + Vite
+# RoleCrack Frontend 🎯
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+RoleCrack is an AI-powered interview preparation platform that helps users generate personalized technical questions and answers based on their job role and experience. This is the **frontend** of the application, built using **React** and **Tailwind CSS**, designed for an intuitive and seamless study experience.
 
-Currently, two official plugins are available:
+## 🚀 Key Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🔐 **User Authentication** – JWT-based login/signup with context-based session handling.
+- 🧠 **AI-Powered Interview Prep** – Get role-specific interview questions and answers using the Gemini API.
+- 📌 **Pin Questions** – Easily pin important questions for quick reference.
+- 📝 **Add Notes** - Easily add a note to any question.
+- 📖 **Concept Explanations** – Ask follow-up questions and get AI-generated explanations.
+- 📁 **Session Management** – View past sessions and Q&A cards in a dashboard view.
+- 🪄 **Accordion UI** – Organized Q&A cards with expand/collapse views.
+- 🧼 **Modern UI** – Clean, responsive interface using Tailwind CSS v4.
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React
+- Tailwind CSS
+- React Router
+- Axios
+- Context API
+- React Icons (Lucide)
+
+## 🔧 Getting Started
+
+### 1. Prerequisites
+
+- Node.js (v16+)
+- npm or yarn
+
+### 2. Installation
+
+```bash
+git clone https://github.com/agprateek7/RoleCrack-frontend.git
+cd rolecrack-frontend
+npm install
+```
+
+### 3. Running the App
+
+```bash
+npm run dev
+```
+
+Open `http://localhost:5173` in your browser.
+
+## 📁 Project Structure
+
+```
+src/
+├── components/          # Reusable UI components (QACard, Accordion, Modal, etc.)
+├── context/             # Auth and User context (UserContext)
+├── pages/               # Routes: Landing, Dashboard, InterviewPrep
+├── utils/               # Axios instance, constants
+├── assets/              # Images, icons
+├── App.jsx              # Main component and routing
+└── main.jsx             # Entry point
+```
+
+## 🔗 Backend Repository
+
+👉 [RoleCrack Backend](https://github.com/agprateek7/RoleCrack-backend)
+
+## 📄 License
+
+This project is licensed under the **MIT License**.
