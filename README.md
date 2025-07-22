@@ -1,5 +1,7 @@
 # RoleCrack Frontend 🎯
 
+[🔗 Live Demo](https://role-crack-frontend.vercel.app/)
+
 RoleCrack is an AI-powered interview preparation platform that helps users generate personalized technical questions and answers based on their job role and experience. This is the **frontend** of the application, built using **React** and **Tailwind CSS**, designed for an intuitive and seamless study experience.
 
 ## 🚀 Key Features
